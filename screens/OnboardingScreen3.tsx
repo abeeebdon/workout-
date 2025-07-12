@@ -19,7 +19,7 @@ const OnboardingScreen3 = () => {
         <View style={{ display: "flex", gap: 10, flexDirection: "column" }}>
           <View style={{ height: "70%" }}>
             <ImageBackground
-              source={require("../assets/onboarding3.png")}
+              source={require("../assets/onboarding4.png")}
               style={styles.background}
               resizeMode="cover"
             ></ImageBackground>
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     padding: 14,
     height: "30%",
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "center",
     paddingBottom: 40,
   },
   background: {
