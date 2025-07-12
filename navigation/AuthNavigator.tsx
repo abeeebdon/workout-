@@ -6,6 +6,8 @@ import OnboardingScreen2 from "../screens/OnboardingScreen2";
 import { RootNavigationTypes } from "../types";
 import OnboardingScreen3 from "../screens/OnboardingScreen3";
 import Login from "../screens/Login";
+import OtpScreen from "../screens/OtpScreen";
+import SelectGender from "../screens/SelectGender";
 
 const Stack = createNativeStackNavigator<RootNavigationTypes>();
 
@@ -50,6 +52,20 @@ function AuthNav() {
       <Stack.Screen
         name="login"
         component={Login}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="verification"
+        component={OtpScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="selectgender"
+        component={SelectGender}
         options={{
           headerShown: false,
         }}

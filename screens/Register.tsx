@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  Alert,
   Pressable,
   StyleSheet,
   Text,
@@ -41,7 +42,10 @@ const Register = () => {
       [key]: value,
     }));
   };
-
+  const handleSubmit = () => {
+    navigation.navigate("verification");
+    Alert.alert("Please verify your email");
+  };
   return (
     <SafeAreaProvider>
       <SafeAreaView>
@@ -77,7 +81,10 @@ const Register = () => {
               height: "40%",
             }}
           >
-            <TouchableOpacity style={styles.submitContainer}>
+            <TouchableOpacity
+              style={styles.submitContainer}
+              onPress={handleSubmit}
+            >
               <Text style={styles.submitBtn}>Signup</Text>
             </TouchableOpacity>
             <View style={styles.linkSignup}>

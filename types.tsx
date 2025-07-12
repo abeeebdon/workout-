@@ -5,4 +5,6 @@ export type RootNavigationTypes = {
   onboarding3: undefined;
   register: undefined;
   login: undefined;
+  verification: undefined;
+  selectgender: undefined;
 };
