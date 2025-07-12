@@ -5,10 +5,15 @@ import {
   Text,
   View,
 } from "react-native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
 import React from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-
+import { useNavigation } from "@react-navigation/native";
+import { RootNavigationTypes } from "../types";
 const OnboardingScreen = () => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootNavigationTypes>>();
   return (
     <SafeAreaProvider>
       <SafeAreaView>
@@ -24,7 +29,10 @@ const OnboardingScreen = () => {
               time
             </Text>
             <View style={styles.nextBtnContainer}>
-              <Pressable style={styles.nextBtn}>
+              <Pressable
+                style={styles.nextBtn}
+                onPress={() => navigation.navigate("onboarding1")}
+              >
                 <Text style={styles.nextBtnText}>Next</Text>
               </Pressable>
             </View>
@@ -45,9 +53,9 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   background: {
+    justifyContent: "center",
     width: "100%",
     height: "100%",
-    justifyContent: "center",
   },
   text: {
     fontSize: 20,
