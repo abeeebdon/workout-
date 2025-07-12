@@ -4,6 +4,8 @@ import Register from "../screens/Register";
 import OnboardingScreen1 from "../screens/OnboardingScreen1";
 import OnboardingScreen2 from "../screens/OnboardingScreen2";
 import { RootNavigationTypes } from "../types";
+import OnboardingScreen3 from "../screens/OnboardingScreen3";
+import Login from "../screens/Login";
 
 const Stack = createNativeStackNavigator<RootNavigationTypes>();
 
@@ -32,8 +34,22 @@ function AuthNav() {
         }}
       />
       <Stack.Screen
+        name="onboarding3"
+        component={OnboardingScreen3}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
         name="register"
         component={Register}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="login"
+        component={Login}
         options={{
           headerShown: false,
         }}

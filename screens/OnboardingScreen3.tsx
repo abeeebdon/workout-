@@ -10,7 +10,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { RootNavigationTypes } from "../types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-const OnboardingScreen2 = () => {
+const OnboardingScreen3 = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootNavigationTypes>>();
   return (
@@ -27,33 +27,35 @@ const OnboardingScreen2 = () => {
 
           <View style={styles.container}>
             <Text style={styles.text}>
-              Get <Text style={{ color: "blue" }}>personalized </Text> workout
-              tailored for your <Text style={{ color: "blue" }}>fitness</Text>{" "}
-              goals
+              Stay <Text style={{ color: "blue" }}>motivated </Text>and track
+              your <Text style={{ color: "blue" }}>progress</Text>
             </Text>
-            <View style={styles.nextBtnContainer}>
-              <Pressable
-                style={styles.nextBtn}
-                onPress={() => navigation.navigate("onboarding3")}
-              >
-                <Text style={styles.nextBtnText}>Next</Text>
-              </Pressable>
-            </View>
-            <View style={styles.navIndicator}>
-              {Array.from({ length: 3 }).map((_, index) => (
-                <View
-                  key={index}
+            <Pressable
+              style={styles.nextBtn}
+              onPress={() => navigation.navigate("register")}
+            >
+              <Text style={styles.nextBtnText}>Signup</Text>
+            </Pressable>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                gap: 4,
+
+                justifyContent: "center",
+              }}
+            >
+              <Text style={{ fontSize: 16 }}>Already have an account?</Text>
+              <Pressable onPress={() => navigation.navigate("login")}>
+                <Text
                   style={{
-                    backgroundColor: index == 2 ? "none" : "blue",
-                    borderWidth: index == 2 ? 1 : 0,
-                    borderColor: "blue",
-                    width: 20,
-                    height: 14,
-                    borderRadius: 5,
-                    marginHorizontal: 4,
+                    fontSize: 16,
+                    color: "blue",
                   }}
-                />
-              ))}
+                >
+                  Login
+                </Text>
+              </Pressable>
             </View>
           </View>
         </View>
@@ -62,7 +64,7 @@ const OnboardingScreen2 = () => {
   );
 };
 
-export default OnboardingScreen2;
+export default OnboardingScreen3;
 
 const styles = StyleSheet.create({
   container: {
@@ -91,7 +93,8 @@ const styles = StyleSheet.create({
   },
   nextBtn: {
     backgroundColor: "#2C4BA0",
-    width: 100,
+    width: "100%",
+    marginVertical: 16,
     padding: 10,
     borderRadius: 10,
   },
