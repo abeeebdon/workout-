@@ -8,6 +8,7 @@ import OnboardingScreen3 from "../screens/OnboardingScreen3";
 import Login from "../screens/Login";
 import OtpScreen from "../screens/OtpScreen";
 import SelectGender from "../screens/SelectGender";
+import Motivation from "../screens/Motivation";
 
 const Stack = createNativeStackNavigator<RootNavigationTypes>();
 
@@ -66,6 +67,13 @@ function AuthNav() {
       <Stack.Screen
         name="selectgender"
         component={SelectGender}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="motivation"
+        component={Motivation}
         options={{
           headerShown: false,
         }}

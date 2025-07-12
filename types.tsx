@@ -7,4 +7,5 @@ export type RootNavigationTypes = {
   login: undefined;
   verification: undefined;
   selectgender: undefined;
+  motivation: undefined;
 };

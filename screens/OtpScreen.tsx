@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import {
   Alert,
+  Image,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -16,6 +18,8 @@ const OTP_LENGTH = 4;
 const OtpScreen = () => {
   const [otp, setOtp] = useState<string[]>(Array(OTP_LENGTH).fill(""));
   const [success, setSuccess] = useState(false);
+  const [time, setTime] = useState(60); // 👈 Add countdown state
+
   const inputsRef = useRef<Array<TextInput | null>>([]);
   const navigation =
     useNavigation<NativeStackNavigationProp<RootNavigationTypes>>();
@@ -37,6 +41,26 @@ const OtpScreen = () => {
     }
   };
   useEffect(() => {
+    let timer: NodeJS.Timeout;
+
+    if (time > 0) {
+      timer = setInterval(() => {
+        setTime((prev) => prev - 1);
+      }, 1000);
+    }
+
+    return () => clearInterval(timer);
+  }, [time]);
+
+  const handleResend = () => {
+    if (time === 0) {
+      setTime(60);
+      Alert.alert("OTP Resent");
+      // resend logic here
+    }
+  };
+
+  useEffect(() => {
     if (!otp[3]) return;
     handleSubmit();
   }, [otp]);
@@ -50,7 +74,12 @@ const OtpScreen = () => {
       <SafeAreaView>
         {success ? (
           <View style={{ paddingTop: 30 }}>
-            <View style={styles.emailContainer}></View>
+            <View style={styles.emailContainer}>
+              <Image
+                source={require("../assets/email.png")}
+                style={{ height: "100%" }}
+              />
+            </View>
             <View style={styles.headingContainer}>
               <Text style={styles.heading}>Email confirmed</Text>
               <Text style={styles.headingText}>
@@ -96,6 +125,23 @@ const OtpScreen = () => {
                 />
               ))}
             </View>
+            <View style={styles.didncode}>
+              <Text style={{ color: "#6C757D" }}>Didn't receive code </Text>
+              <TouchableOpacity
+                onPress={handleResend}
+                disabled={time !== 0}
+                style={{ flexDirection: "row", alignItems: "center", gap: 6 }}
+              >
+                <Ionicons
+                  name="refresh"
+                  size={16}
+                  color={time === 0 ? "blue" : "gray"}
+                />
+                <Text style={{ color: time === 0 ? "blue" : "gray" }}>
+                  Resend in {time}s
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         )}
       </SafeAreaView>
@@ -122,13 +168,14 @@ const styles = StyleSheet.create({
   },
   otpContainer: {
     flexDirection: "row",
+    margin: 16,
     gap: 10,
   },
   input: {
     width: 50,
     height: 60,
     borderWidth: 1,
-    borderColor: "#999",
+    borderColor: "#6C757D",
     borderRadius: 8,
     textAlign: "center",
     fontSize: 24,
@@ -137,12 +184,14 @@ const styles = StyleSheet.create({
   emailContainer: {
     marginVertical: 40,
     marginHorizontal: 20,
-    height: 100,
-    backgroundColor: "blue",
+    height: 180,
+    backgroundColor: "#F7F9FC",
+    flexDirection: "row",
+    justifyContent: "center",
+    borderRadius: 16,
+    elevation: 4,
   },
   getStartedContainer: {
-    marginTop: 40,
-
     height: "40%",
     justifyContent: "flex-end",
   },
@@ -151,5 +200,10 @@ const styles = StyleSheet.create({
     backgroundColor: "blue",
     padding: 8,
     borderRadius: 12,
+  },
+  didncode: {
+    display: "flex",
+    flexDirection: "row",
+    margin: 16,
   },
 });
