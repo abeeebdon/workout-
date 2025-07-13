@@ -3,92 +3,80 @@ import {
   FlatList,
   ImageBackground,
   ImageSourcePropType,
-  Modal,
   Pressable,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
 
 interface CategoriesType {
   name: string;
   imageSrc: ImageSourcePropType;
 }
 
-const levels = ["Beginner", "Intermediate", "Advanced"];
-
 const categories: CategoriesType[] = [
   { name: "Strength", imageSrc: require("../assets/image2.png") },
   { name: "Cardio", imageSrc: require("../assets/image3.png") },
   { name: "Power", imageSrc: require("../assets/image3.png") },
 ];
+const params = [
+  { value: "176", title: "Weight", unit: "lbs" },
+  { value: "176", title: "Weight", unit: "lbs" },
+  { value: "176", title: "Weight", unit: "lbs" },
+];
 
 const ForYou = () => {
-  const [query, setQuery] = useState("");
-  const [selected, setSelected] = useState<string | null>(null);
-  const [visible, setVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<CategoriesType>();
-
-  const handleSelect = (value: string) => {
-    setSelected(value);
-    setVisible(false);
-  };
 
   return (
     <View style={styles.container}>
-      {/* Search */}
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Search ..."
-          value={query}
-          onChangeText={setQuery}
-          placeholderTextColor="white"
-        />
-        <Ionicons name="search" size={20} color="white" style={styles.icon} />
-      </View>
-
-      {/* Level Selector */}
-      <View style={styles.selectLevel}>
-        <Text style={styles.sectionTitle}>Select Level</Text>
-        <TouchableOpacity
-          style={styles.dropdown}
-          onPress={() => setVisible(true)}
+      {/* Banner Section */}
+      <ImageBackground
+        source={require("../assets/image-sit.png")}
+        style={styles.imageBg}
+        imageStyle={{ borderRadius: 12 }}
+      >
+        <View
+          style={[styles.imageOverlay, { paddingBottom: 20, paddingLeft: 20 }]}
         >
-          <Text style={styles.dropdownText}>
-            {selected ? selected : "Select level"}
-          </Text>
-          <Ionicons name="chevron-down-sharp" />
-        </TouchableOpacity>
-
-        {/* Modal Dropdown */}
-        <Modal transparent animationType="fade" visible={visible}>
-          <TouchableOpacity
-            style={styles.modalBackground}
-            activeOpacity={1}
-            onPressOut={() => setVisible(false)}
+          <Text style={styles.imageText}>ABS Beginner</Text>
+          <Text style={{ color: "white" }}>20 minutes 12 exercises</Text>
+        </View>
+      </ImageBackground>
+      <View style={styles.yourProgress}>
+        <Text>Your progress</Text>
+        <View style={styles.progrssContainer}>
+          <View style={styles.progressTracker}>
+            <Text>You have not started any program.</Text>
+            <Text>0%</Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: "blue",
+              marginVertical: 10,
+              marginTop: 20,
+              padding: 10,
+              borderRadius: 10,
+            }}
           >
-            <View style={styles.modalContainer}>
-              <FlatList
-                data={levels}
-                keyExtractor={(item) => item}
-                renderItem={({ item }) => (
-                  <TouchableOpacity
-                    style={styles.option}
-                    onPress={() => handleSelect(item)}
-                  >
-                    <Text style={styles.optionText}>{item}</Text>
-                  </TouchableOpacity>
-                )}
-              />
+            <Text style={{ color: "white" }}>Health Metrics</Text>
+            <Text>Updated 5 mins ago</Text>
+            <View style={styles.paramContainer}>
+              {params.map((param, i) => {
+                return (
+                  <View key={i} style={styles.param}>
+                    <Text>{param.title}</Text>
+                    <Text>
+                      {param.value} {param.unit}
+                    </Text>
+                  </View>
+                );
+              })}
             </View>
-          </TouchableOpacity>
-        </Modal>
+          </View>
+        </View>
       </View>
-
       {/* Categories */}
       <Text style={styles.sectionTitle}>Categories</Text>
       <FlatList
@@ -109,11 +97,13 @@ const ForYou = () => {
           </TouchableOpacity>
         )}
       />
+
+      {/* No Equipment Training Section */}
       <Text style={styles.sectionTitle}>Body training without equipment</Text>
       <FlatList
         horizontal
         data={categories}
-        keyExtractor={(item) => item.name}
+        keyExtractor={(item) => item.name + "_body"}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ gap: 12, paddingVertical: 10 }}
         renderItem={({ item }) => (
@@ -137,69 +127,35 @@ export default ForYou;
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 16,
+    flex: 1,
   },
-  inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#6C8EEF",
+  imageBg: {
+    height: 200,
+    width: "100%",
     borderRadius: 12,
-    paddingHorizontal: 12,
+    justifyContent: "flex-end",
     marginBottom: 20,
   },
-  input: {
-    flex: 1,
-    fontSize: 16,
-    color: "white",
-    paddingVertical: 10,
+  imageOverlay: {
+    backgroundColor: "rgba(0,0,0,0.2)",
+    width: "100%",
+    height: "100%",
+    borderRadius: 12,
+
+    justifyContent: "flex-end",
   },
-  icon: {
-    marginLeft: 8,
+  imageText: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "left",
   },
   sectionTitle: {
     fontSize: 16,
-    fontWeight: "500",
+    fontWeight: "600",
     color: "#343A40",
     marginBottom: 8,
     textTransform: "uppercase",
-  },
-  selectLevel: {
-    marginBottom: 24,
-  },
-  dropdown: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    padding: 12,
-    borderRadius: 8,
-    backgroundColor: "#fff",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  dropdownText: {
-    fontSize: 16,
-    color: "#333",
-    textTransform: "capitalize",
-    flex: 1,
-  },
-  modalBackground: {
-    flex: 1,
-    justifyContent: "center",
-    backgroundColor: "#00000040",
-  },
-  modalContainer: {
-    marginHorizontal: 40,
-    backgroundColor: "#fff",
-    borderRadius: 8,
-    paddingVertical: 8,
-  },
-  option: {
-    padding: 12,
-    borderBottomWidth: 1,
-    borderColor: "#eee",
-  },
-  optionText: {
-    fontSize: 16,
-    color: "#333",
   },
   categoryOption: {
     width: 160,
@@ -214,5 +170,31 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     textTransform: "uppercase",
+  },
+  yourProgress: {
+    marginTop: 30,
+  },
+  progrssContainer: {
+    borderRadius: 12,
+    backgroundColor: "#F7F9FC",
+    elevation: 1,
+    marginVertical: 16,
+    marginBottom: 40,
+    padding: 14,
+  },
+  progressTracker: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  paramContainer: {
+    justifyContent: "space-between",
+    flexDirection: "row",
+  },
+  param: {
+    backgroundColor: "white",
+    padding: 8,
+    borderRadius: 12,
+    width: "30%",
+    alignItems: "center",
   },
 });

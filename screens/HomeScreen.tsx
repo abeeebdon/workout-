@@ -20,7 +20,7 @@ const HomeScreen = () => {
   return (
     <SafeAreaProvider>
       <SafeAreaView>
-        <ScrollView style={styles.container}>
+        <ScrollView style={[styles.container, { backgroundColor: "white" }]}>
           <View style={styles.headContainer}>
             <View>
               <Text>Hi {user}!</Text>
