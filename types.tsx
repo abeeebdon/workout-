@@ -8,4 +8,10 @@ export type RootNavigationTypes = {
   verification: undefined;
   selectgender: undefined;
   motivation: undefined;
+  suggestion: undefined;
+  home: undefined;
+  Home: undefined;
+  tracker: undefined;
+  history: undefined;
+  tips: undefined;
 };

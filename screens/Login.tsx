@@ -82,7 +82,10 @@ const Login = () => {
               </View>
             </View>
           </View>
-          <TouchableOpacity style={styles.submitContainer}>
+          <TouchableOpacity
+            style={styles.submitContainer}
+            onPress={() => navigation.navigate("home")}
+          >
             <Text style={styles.submitBtn}>Login</Text>
           </TouchableOpacity>
           <Pressable style={styles.forgotPassword}>

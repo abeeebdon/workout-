@@ -3,6 +3,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AuthNav from "./AuthNavigator";
+import AppNavigator from "./AppNavigator";
 const Stack = createNativeStackNavigator();
 
 const RootNavigation = () => {
@@ -12,6 +13,13 @@ const RootNavigation = () => {
         <Stack.Screen
           name="auth"
           component={AuthNav}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="home"
+          component={AppNavigator}
           options={{
             headerShown: false,
           }}

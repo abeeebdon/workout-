@@ -9,6 +9,7 @@ import Login from "../screens/Login";
 import OtpScreen from "../screens/OtpScreen";
 import SelectGender from "../screens/SelectGender";
 import Motivation from "../screens/Motivation";
+import Suggestion from "../screens/Suggestion";
 
 const Stack = createNativeStackNavigator<RootNavigationTypes>();
 
@@ -74,6 +75,13 @@ function AuthNav() {
       <Stack.Screen
         name="motivation"
         component={Motivation}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="suggestion"
+        component={Suggestion}
         options={{
           headerShown: false,
         }}
