@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import ForYou from "../components/ForYou";
 import Browse from "../components/Browse";
@@ -13,7 +20,7 @@ const HomeScreen = () => {
   return (
     <SafeAreaProvider>
       <SafeAreaView>
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
           <View style={styles.headContainer}>
             <View>
               <Text>Hi {user}!</Text>
@@ -56,7 +63,7 @@ const HomeScreen = () => {
             })}
           </View>
           <View>{components[activeNav]}</View>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -73,8 +80,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   userImageContainer: {
-    width: 100,
-    height: 100,
+    width: 50,
+    height: 50,
   },
   userImage: {
     width: "100%",
