@@ -1,17 +1,21 @@
-import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import {
   Alert,
   Pressable,
-  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation } from "@react-navigation/native";
+import { useForm, Controller } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootNavigationTypes } from "../types";
+import { signupStyles as styles } from "../styles/authStyles";
+import Heading from "../components/Heading";
+import { colors } from "../constants/Colors";
 
 interface UserDetails {
   firstName: string;
@@ -28,52 +32,74 @@ const inputFields: {
   { label: "email address", val: "email" },
 ];
 
+const schema = yup.object({
+  firstName: yup.string().required("First name is required"),
+  lastName: yup.string().required("Last name is required"),
+  email: yup.string().email("Invalid email").required("Email is required"),
+});
+
 const Register = () => {
-  const [userDetails, setUserDetails] = useState<UserDetails>({
-    firstName: "",
-    lastName: "",
-    email: "",
-  });
   const navigation =
     useNavigation<NativeStackNavigationProp<RootNavigationTypes>>();
-  const handleChange = (key: keyof UserDetails, value: string) => {
-    setUserDetails((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-  };
-  const handleSubmit = () => {
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserDetails>({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+    },
+  });
+
+  const onSubmit = (data: UserDetails) => {
     navigation.navigate("verification");
     Alert.alert("Please verify your email");
+    console.log("Form data:", data);
   };
+
   return (
     <SafeAreaProvider>
       <SafeAreaView>
         <View style={styles.container}>
           <View>
-            <View style={styles.headingContainer}>
-              <Text style={styles.heading}>Welcome !!! </Text>
-              <Text style={styles.headingText}>
-                Get personalized fitness with us! Sign up for tailored workouts,
-                track progress, and connect with others. Start now!
-              </Text>
-            </View>
+            <Heading
+              heading="Welcome !!!"
+              paragraph="Get personalized fitness with us! Sign up for tailored workouts,
+                track progress, and connect with others. Start now!"
+            />
 
             <View style={styles.inputContainer}>
               {inputFields.map((inp) => (
                 <View key={inp.val}>
                   <Text style={styles.label}>{inp.label}</Text>
-                  <TextInput
-                    value={userDetails[inp.val]}
-                    onChangeText={(text) => handleChange(inp.val, text)}
-                    placeholder={`Enter ${inp.label}`}
-                    style={styles.input}
-                    autoCapitalize="none"
+                  <Controller
+                    control={control}
+                    name={inp.val}
+                    render={({ field: { onChange, value, onBlur } }) => (
+                      <TextInput
+                        value={value}
+                        onChangeText={onChange}
+                        onBlur={onBlur}
+                        placeholder={`Enter ${inp.label}`}
+                        style={styles.input}
+                        autoCapitalize="none"
+                      />
+                    )}
                   />
+                  {errors[inp.val] && (
+                    <Text style={{ color: "red", fontSize: 12 }}>
+                      {errors[inp.val]?.message}
+                    </Text>
+                  )}
                 </View>
               ))}
             </View>
           </View>
+
           <View
             style={{
               display: "flex",
@@ -83,14 +109,16 @@ const Register = () => {
           >
             <TouchableOpacity
               style={styles.submitContainer}
-              onPress={handleSubmit}
+              onPress={handleSubmit(onSubmit)}
             >
               <Text style={styles.submitBtn}>Signup</Text>
             </TouchableOpacity>
             <View style={styles.linkSignup}>
               <Text style={styles.DontText}>Already have an account? </Text>
               <Pressable onPress={() => navigation.navigate("login")}>
-                <Text style={(styles.DontText, { color: "blue" })}>Login</Text>
+                <Text style={[styles.DontText, { color: colors.primary }]}>
+                  Login
+                </Text>
               </Pressable>
             </View>
           </View>
@@ -101,64 +129,3 @@ const Register = () => {
 };
 
 export default Register;
-
-const styles = StyleSheet.create({
-  container: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
-  headingContainer: {
-    padding: 15,
-  },
-  heading: {
-    color: "blue",
-    fontSize: 24,
-    paddingTop: 15,
-    fontWeight: "bold",
-  },
-  headingText: {
-    fontSize: 16,
-    color: "#111111B2",
-    marginTop: 8,
-  },
-  inputContainer: {
-    padding: 16,
-  },
-  label: {
-    fontSize: 16,
-    marginBottom: 4,
-    color: "#333",
-    textTransform: "capitalize",
-  },
-  input: {
-    width: "100%",
-    padding: 12,
-    paddingRight: 40,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-    marginBottom: 16,
-  },
-  submitContainer: {
-    margin: 16,
-    marginTop: 20,
-    backgroundColor: "blue",
-    padding: 6,
-    borderRadius: 12,
-  },
-  submitBtn: {
-    color: "white",
-    textAlign: "center",
-    fontSize: 24,
-  },
-  linkSignup: {
-    display: "flex",
-    flexDirection: "row",
-    gap: 3,
-    justifyContent: "center",
-  },
-  DontText: {
-    color: "#6C757D",
-    fontSize: 16,
-  },
-});

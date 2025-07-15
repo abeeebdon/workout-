@@ -4,6 +4,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AuthNav from "./AuthNavigator";
 import AppNavigator from "./AppNavigator";
+import Profile from "../screens/Profile";
+import Settings from "../screens/Settings";
 const Stack = createNativeStackNavigator();
 
 const RootNavigation = () => {
@@ -20,6 +22,20 @@ const RootNavigation = () => {
         <Stack.Screen
           name="home"
           component={AppNavigator}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="profile"
+          component={Profile}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="settings"
+          component={Settings}
           options={{
             headerShown: false,
           }}

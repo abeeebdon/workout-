@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { colors } from "../constants/Colors";
 
 interface Props {
   heading: string;
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   heading: {
-    color: "blue",
+    color: colors.primary,
     fontSize: 24,
     fontWeight: "bold",
   },

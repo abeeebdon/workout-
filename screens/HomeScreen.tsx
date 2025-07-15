@@ -11,11 +11,17 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import ForYou from "../components/ForYou";
 import Browse from "../components/Browse";
 import Saved from "../components/Saved";
+import { colors } from "../constants/Colors";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootNavigationTypes } from "../types";
 
 const nav = ["for you", "browse", "saved"];
 const components = [<ForYou />, <Browse />, <Saved />];
 const HomeScreen = () => {
   const [activeNav, setActiveNav] = useState(0);
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootNavigationTypes>>();
   const user = "John";
   return (
     <SafeAreaProvider>
@@ -23,15 +29,22 @@ const HomeScreen = () => {
         <ScrollView style={[styles.container, { backgroundColor: "white" }]}>
           <View style={styles.headContainer}>
             <View>
-              <Text>Hi {user}!</Text>
-              <Text>Let's get to work</Text>
+              <Text style={{ fontSize: 16, color: "#343A40", lineHeight: 24 }}>
+                Hi {user}!
+              </Text>
+              <Text style={{ fontSize: 14, color: "#6C8EEF", lineHeight: 20 }}>
+                Let's get to work
+              </Text>
             </View>
-            <View style={styles.userImageContainer}>
+            <Pressable
+              style={styles.userImageContainer}
+              onPress={() => navigation.navigate("profile")}
+            >
               <Image
                 source={require("../assets/profile.png")}
                 style={styles.userImage}
               />
-            </View>
+            </Pressable>
           </View>
 
           <View style={styles.navContainer}>
@@ -44,7 +57,7 @@ const HomeScreen = () => {
                     styles.navItem,
                     {
                       backgroundColor:
-                        nav[activeNav] == na ? "blue" : "transparent",
+                        nav[activeNav] == na ? colors.primary : "transparent",
                     },
                   ]}
                 >
@@ -52,7 +65,7 @@ const HomeScreen = () => {
                     style={[
                       styles.navItemText,
                       {
-                        color: nav[activeNav] == na ? "white" : "blue",
+                        color: nav[activeNav] == na ? "white" : colors.primary,
                       },
                     ]}
                   >
@@ -95,7 +108,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
     justifyContent: "center",
     alignItems: "center",
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: "#CED4DA",
     borderRadius: 12,
   },

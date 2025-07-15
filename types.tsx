@@ -14,4 +14,6 @@ export type RootNavigationTypes = {
   tracker: undefined;
   history: undefined;
   tips: undefined;
+  profile: undefined;
+  settings: undefined;
 };
