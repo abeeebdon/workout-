@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { colors } from "../constants/Colors";
 const settings = [
   "Account settings",
   "Change password",
@@ -36,7 +37,7 @@ const SettingsScreen = ({ navigation }: any) => {
         <Text style={styles.headerText}>Settings</Text>
       </View>
 
-      <ScrollView>
+      <ScrollView style={{ marginVertical: 16 }}>
         {/* Read-only Info */}
         <View style={styles.infoContainer}>
           <View style={styles.infoRow}>
@@ -70,6 +71,25 @@ const SettingsScreen = ({ navigation }: any) => {
               <Text style={styles.optionText}>{option}</Text>
             </TouchableOpacity>
           ))}
+        </View>
+        <View style={styles.optionContainer}>
+          <TouchableOpacity style={styles.optionRow}>
+            <Text style={[styles.optionText, { color: "#E01414" }]}>
+              Delete Account
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.optionContainer}>
+          <TouchableOpacity style={styles.optionRow}>
+            <Text
+              style={[
+                styles.optionText,
+                { color: colors.primary, fontWeight: "500" },
+              ]}
+            >
+              Log out
+            </Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>

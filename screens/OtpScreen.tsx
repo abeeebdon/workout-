@@ -13,6 +13,8 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootNavigationTypes } from "../types";
+import Heading from "../components/Heading";
+import { colors } from "../constants/Colors";
 
 const OTP_LENGTH = 4;
 const OtpScreen = () => {
@@ -80,21 +82,22 @@ const OtpScreen = () => {
                 style={{ height: "100%" }}
               />
             </View>
-            <View style={styles.headingContainer}>
-              <Text style={styles.heading}>Email confirmed</Text>
-              <Text style={styles.headingText}>
-                Congratulations! Your email has been successfully confirmed.
+            <Heading
+              heading="Email confirmed"
+              paragraph="Congratulations! Your email has been successfully confirmed.
                 You're now ready to explore personalized workouts, track your
                 progress, and connect with our vibrant fitness community. Get
-                started on your fitness journey!
-              </Text>
-            </View>
+                started on your fitness journey!"
+            />
+
             <View style={styles.getStartedContainer}>
               <TouchableOpacity
                 style={styles.getStarted}
                 onPress={() => navigation.navigate("selectgender")}
               >
-                <Text style={{ textAlign: "center", color: "white" }}>
+                <Text
+                  style={{ textAlign: "center", color: "white", fontSize: 16 }}
+                >
                   Get Started
                 </Text>
               </TouchableOpacity>
@@ -102,12 +105,11 @@ const OtpScreen = () => {
           </View>
         ) : (
           <View>
-            <View style={styles.headingContainer}>
-              <Text style={styles.heading}>Enter OTP </Text>
-              <Text style={styles.headingText}>
-                Enter the OTP we sent to your email
-              </Text>
-            </View>
+            <Heading
+              heading="Enter OTP"
+              paragraph=" Enter the OTP we sent to your email"
+            />
+
             <View style={styles.otpContainer}>
               {otp.map((digit, index) => (
                 <TextInput
@@ -197,8 +199,8 @@ const styles = StyleSheet.create({
   },
   getStarted: {
     margin: 16,
-    backgroundColor: "blue",
-    padding: 8,
+    backgroundColor: colors.primary,
+    padding: 10,
     borderRadius: 12,
   },
   didncode: {

@@ -11,6 +11,7 @@ import React from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { RootNavigationTypes } from "../types";
+import { colors } from "../constants/Colors";
 const OnboardingScreen = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootNavigationTypes>>();
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   nextBtn: {
-    backgroundColor: "blue",
+    backgroundColor: colors.primary,
     width: 100,
     padding: 10,
     borderRadius: 10,

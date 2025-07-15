@@ -10,6 +10,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { RootNavigationTypes } from "../types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import AuthBottomIndicator from "../components/AuthBottomIndicator";
 const OnboardingScreen2 = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootNavigationTypes>>();
@@ -39,22 +40,7 @@ const OnboardingScreen2 = () => {
                 <Text style={styles.nextBtnText}>Next</Text>
               </Pressable>
             </View>
-            <View style={styles.navIndicator}>
-              {Array.from({ length: 3 }).map((_, index) => (
-                <View
-                  key={index}
-                  style={{
-                    backgroundColor: index == 2 ? "none" : "blue",
-                    borderWidth: index == 2 ? 1 : 0,
-                    borderColor: "blue",
-                    width: 20,
-                    height: 14,
-                    borderRadius: 5,
-                    marginHorizontal: 4,
-                  }}
-                />
-              ))}
-            </View>
+            <AuthBottomIndicator active={2} />
           </View>
         </View>
       </SafeAreaView>

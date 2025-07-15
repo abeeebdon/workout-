@@ -3,6 +3,7 @@ import {
   Pressable,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import React from "react";
@@ -10,6 +11,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { RootNavigationTypes } from "../types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { colors } from "../constants/Colors";
 const OnboardingScreen3 = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootNavigationTypes>>();
@@ -30,33 +32,12 @@ const OnboardingScreen3 = () => {
               Stay <Text style={{ color: "blue" }}>motivated </Text>and track
               your <Text style={{ color: "blue" }}>progress</Text>
             </Text>
-            <Pressable
+            <TouchableOpacity
               style={styles.nextBtn}
               onPress={() => navigation.navigate("register")}
             >
-              <Text style={styles.nextBtnText}>Signup</Text>
-            </Pressable>
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                gap: 4,
-
-                justifyContent: "center",
-              }}
-            >
-              <Text style={{ fontSize: 16 }}>Already have an account?</Text>
-              <Pressable onPress={() => navigation.navigate("login")}>
-                <Text
-                  style={{
-                    fontSize: 16,
-                    color: "blue",
-                  }}
-                >
-                  Login
-                </Text>
-              </Pressable>
-            </View>
+              <Text style={styles.nextBtnText}>Get Started</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </SafeAreaView>
@@ -92,7 +73,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   nextBtn: {
-    backgroundColor: "#2C4BA0",
+    backgroundColor: colors.primary,
     width: "100%",
     marginVertical: 16,
     padding: 10,
