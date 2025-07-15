@@ -2,11 +2,28 @@ import { Image, Pressable, ScrollView, TouchableOpacity } from "react-native";
 import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import Feather from "react-native-vector-icons/Feather";
 import { colors } from "../constants/Colors";
 const user = [
   { label: "Age", value: 30 },
   { label: "Weight", value: 30 },
   { label: "Height", value: 30 },
+];
+const fitnessGoals = [
+  "Nice shape",
+  "Body fit",
+  "Motivation",
+  "Weight watch",
+  "Health improvement",
+  "Nutrition",
+];
+const workoutPreference = [
+  "Nice shape",
+  "Body fit",
+  "Motivation",
+  "Weight watch",
+  "Health improvement",
+  "Nutrition",
 ];
 const Profile = ({ navigation }: any) => {
   return (
@@ -22,7 +39,7 @@ const Profile = ({ navigation }: any) => {
             </Text>
           </View>
           <TouchableOpacity onPress={() => navigation.navigate("settings")}>
-            <Ionicons name="settings" size={24} style={{ color: "#6C757D" }} />
+            <Feather name="settings" size={24} style={{ color: "#6C757D" }} />
           </TouchableOpacity>
         </View>
         <View style={styles.imageContainer}>
@@ -37,122 +54,87 @@ const Profile = ({ navigation }: any) => {
           <Text style={styles.editProfileText}>Edit Profile</Text>
         </TouchableOpacity>
         <View style={styles.userDetails}>
-          <Text
-            style={{
-              color: "#343A40",
-              fontSize: 16,
-              fontWeight: "medium",
-              lineHeight: 24,
-            }}
-          >
-            Basic Info
-          </Text>
-          <View style={styles.basicDetails}>
-            {user.map((data) => {
-              return (
-                <View key={data.label} style={styles.userContainer}>
-                  <Text
-                    style={{
-                      color: "#343A40",
-                      fontSize: 14,
-                      width: 40,
-                      lineHeight: 18,
-                    }}
-                  >
-                    {data.label}
-                  </Text>
-                  <Text>:</Text>
-                  <Text
-                    style={{
-                      color: "#343A40",
-                      fontSize: 14,
-                      width: 60,
-                      lineHeight: 18,
-                    }}
-                  >
-                    {data.value}
-                  </Text>
-                </View>
-              );
-            })}
+          <View>
+            <Text style={styles.label}>Basic Info</Text>
+            <View style={styles.basicDetails}>
+              {user.map((data) => {
+                return (
+                  <View key={data.label} style={styles.userContainer}>
+                    <Text
+                      style={{
+                        color: "#343A40",
+                        fontSize: 14,
+                        width: 40,
+                        lineHeight: 18,
+                      }}
+                    >
+                      {data.label}
+                    </Text>
+                    <Text>:</Text>
+                    <Text
+                      style={{
+                        color: "#343A40",
+                        fontSize: 14,
+                        width: 60,
+                        lineHeight: 18,
+                      }}
+                    >
+                      {data.value}
+                    </Text>
+                  </View>
+                );
+              })}
+            </View>
           </View>
-          <Text
-            style={{
-              color: "#343A40",
-              fontSize: 16,
-              fontWeight: "medium",
-              lineHeight: 24,
-            }}
-          >
-            Basic Info
-          </Text>
-          <View style={styles.basicDetails}>
-            {user.map((data) => {
-              return (
-                <View key={data.label} style={styles.userContainer}>
+
+          {/* fitness goals  */}
+          <View>
+            <Text style={styles.label}>Fitness Goals</Text>
+            <View style={styles.fitnessGoal}>
+              {fitnessGoals.map((data) => {
+                return (
                   <Text
+                    key={data}
                     style={{
-                      color: "#343A40",
+                      color: "white",
+                      backgroundColor: colors.primary,
                       fontSize: 14,
-                      width: 40,
                       lineHeight: 18,
+                      borderRadius: 24,
+                      padding: 10,
+                      paddingHorizontal: 14,
+                      textAlign: "center",
                     }}
                   >
-                    {data.label}
+                    {data}
                   </Text>
-                  <Text>:</Text>
-                  <Text
-                    style={{
-                      color: "#343A40",
-                      fontSize: 14,
-                      width: 60,
-                      lineHeight: 18,
-                    }}
-                  >
-                    {data.value}
-                  </Text>
-                </View>
-              );
-            })}
+                );
+              })}
+            </View>
           </View>
-          <Text
-            style={{
-              color: "#343A40",
-              fontSize: 16,
-              fontWeight: "medium",
-              lineHeight: 24,
-            }}
-          >
-            Basic Info
-          </Text>
-          <View style={styles.basicDetails}>
-            {user.map((data) => {
-              return (
-                <View key={data.label} style={styles.userContainer}>
+          <View>
+            <Text style={styles.label}>Workout Preference</Text>
+            <View style={styles.fitnessGoal}>
+              {workoutPreference.map((data) => {
+                return (
                   <Text
+                    key={data}
                     style={{
-                      color: "#343A40",
+                      color: "white",
+                      backgroundColor: colors.primary,
                       fontSize: 14,
-                      width: 40,
                       lineHeight: 18,
+                      borderRadius: 24,
+                      padding: 10,
+                      paddingHorizontal: 14,
+                      textAlign: "center",
                     }}
                   >
-                    {data.label}
+                    {data}
                   </Text>
-                  <Text>:</Text>
-                  <Text
-                    style={{
-                      color: "#343A40",
-                      fontSize: 14,
-                      width: 60,
-                      lineHeight: 18,
-                    }}
-                  >
-                    {data.value}
-                  </Text>
-                </View>
-              );
-            })}
+                );
+              })}
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -216,16 +198,35 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   basicDetails: {
-    backgroundColor: "#CED4DA",
+    backgroundColor: "#c3d0dd50",
     padding: 10,
     borderRadius: 20,
+    borderWidth: 0.5,
+    borderColor: "#F7F9FC",
     margin: 16,
     gap: 10,
+  },
+  label: {
+    color: "#343A40",
+    fontSize: 16,
+    fontWeight: "medium",
+    lineHeight: 24,
   },
   userContainer: {
     flexDirection: "row",
     gap: 10,
     padding: 10,
     paddingVertical: 6,
+  },
+  fitnessGoal: {
+    flexDirection: "row",
+    backgroundColor: "#c3d0dd50",
+    borderRadius: 20,
+    borderWidth: 0.5,
+    borderColor: "#F7F9FC",
+    gap: 6,
+    margin: 16,
+    padding: 16,
+    flexWrap: "wrap",
   },
 });

@@ -24,61 +24,59 @@ const HomeScreen = () => {
     useNavigation<NativeStackNavigationProp<RootNavigationTypes>>();
   const user = "John";
   return (
-    <SafeAreaProvider>
-      <SafeAreaView>
-        <ScrollView style={[styles.container, { backgroundColor: "white" }]}>
-          <View style={styles.headContainer}>
-            <View>
-              <Text style={{ fontSize: 16, color: "#343A40", lineHeight: 24 }}>
-                Hi {user}!
-              </Text>
-              <Text style={{ fontSize: 14, color: "#6C8EEF", lineHeight: 20 }}>
-                Let's get to work
-              </Text>
-            </View>
-            <Pressable
-              style={styles.userImageContainer}
-              onPress={() => navigation.navigate("profile")}
-            >
-              <Image
-                source={require("../assets/profile.png")}
-                style={styles.userImage}
-              />
-            </Pressable>
+    <SafeAreaView>
+      <ScrollView style={[styles.container, { backgroundColor: "white" }]}>
+        <View style={styles.headContainer}>
+          <View>
+            <Text style={{ fontSize: 16, color: "#343A40", lineHeight: 24 }}>
+              Hi {user}!
+            </Text>
+            <Text style={{ fontSize: 14, color: "#6C8EEF", lineHeight: 20 }}>
+              Let's get to work
+            </Text>
           </View>
+          <Pressable
+            style={styles.userImageContainer}
+            onPress={() => navigation.navigate("profile")}
+          >
+            <Image
+              source={require("../assets/profile.png")}
+              style={styles.userImage}
+            />
+          </Pressable>
+        </View>
 
-          <View style={styles.navContainer}>
-            {nav.map((na, i) => {
-              return (
-                <Pressable
-                  onPress={() => setActiveNav(i)}
-                  key={na}
+        <View style={styles.navContainer}>
+          {nav.map((na, i) => {
+            return (
+              <Pressable
+                onPress={() => setActiveNav(i)}
+                key={na}
+                style={[
+                  styles.navItem,
+                  {
+                    backgroundColor:
+                      nav[activeNav] == na ? colors.primary : "transparent",
+                  },
+                ]}
+              >
+                <Text
                   style={[
-                    styles.navItem,
+                    styles.navItemText,
                     {
-                      backgroundColor:
-                        nav[activeNav] == na ? colors.primary : "transparent",
+                      color: nav[activeNav] == na ? "white" : colors.primary,
                     },
                   ]}
                 >
-                  <Text
-                    style={[
-                      styles.navItemText,
-                      {
-                        color: nav[activeNav] == na ? "white" : colors.primary,
-                      },
-                    ]}
-                  >
-                    {na}
-                  </Text>
-                </Pressable>
-              );
-            })}
-          </View>
-          <View>{components[activeNav]}</View>
-        </ScrollView>
-      </SafeAreaView>
-    </SafeAreaProvider>
+                  {na}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </View>
+        <View>{components[activeNav]}</View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
